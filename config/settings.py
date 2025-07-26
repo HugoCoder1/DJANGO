@@ -21,7 +21,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-a2530k(qk1poz$@0e854n$_-(&+0l#u=#-*msb5e=-c1dfvkr6"
+# SECRET_KEY = "django-insecure-a2530k(qk1poz$@0e854n$_-(&+0l#u=#-*msb5e=-c1dfvkr6"
+# ✅ SÉCURISÉ
+SECRET_KEY = os.environ.get(
+    "SECRET_KEY", "django-insecure-a2530k(qk1poz$@0e854n$_-(&+0l#u=#-*msb5e=-c1dfvkr6"
+)  # Utilisez une variable d'environnement pour la clé secrète
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -45,13 +49,13 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",  # Ajoutez cette ligne
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "whitenoise.middleware.WhiteNoiseMiddleware",  # Ajoutez cette ligne
 ]
 
 ROOT_URLCONF = "config.urls"
@@ -124,9 +128,9 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 # Pour le développement
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "static"),
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, "static"),
+# ]
 
 # Finders pour collecter les fichiers statiques
 STATICFILES_FINDERS = [
